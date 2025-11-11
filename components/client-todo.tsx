@@ -24,9 +24,9 @@ export function ClientTodo() {
 
             try {
                 const { data, error } = await supabase
-                    .from('todo')
+                    .from(`${process.env.NEXT_PUBLIC_TABLE_NAME}`)
                     .select('*')
-                    .eq('id', '25d8dac3-f3c3-4231-bbce-6b33947165a4')
+                    .eq('id', `${process.env.NEXT_PUBLIC_COLUMN_ID}`)
                     .single();
 
                 const fetchEndTime = Date.now();
@@ -125,19 +125,13 @@ export function ClientTodo() {
                                 </div>
                             )}
 
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Created At:</label>
-                                <p className="mt-1 text-sm text-gray-900 dark:text-white">
-                                    {new Date(todo.created_at).toLocaleString()}
-                                </p>
-                            </div>
 
                             {typeof todo.completed === 'boolean' && (
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Status:</label>
                                     <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${todo.completed
-                                            ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
-                                            : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
+                                        ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+                                        : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
                                         }`}>
                                         {todo.completed ? 'Completed' : 'Pending'}
                                     </span>
